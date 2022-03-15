@@ -1,8 +1,0 @@
-./gcode_unclean/9.gcode
-./gcode_clean/9.gcode
-9
-0
-11
-9
-9
-0
