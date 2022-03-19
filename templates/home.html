@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+    <form method="POST" enctype="multipart/form-data" action="/upload">
+
+        <div class="input-group">
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="file-input" name="file[]" multiple="">
+                <label class="custom-file-label" for="file-input">Choose file</label>
+            </div>
+            <div class="input-group-append">
+                <button class="btn btn-primary" id="upload" type="submit" disabled>Upload</button>
+            </div>
+        </div>
+    </form>
+    <script>
+        $('#file-input').on('change',function(){
+            let filename = $(this).val();
+            if(filename !== '') {
+                $("#upload").attr('disabled', false);
+            }
+            $(this).next('.custom-file-label').html('Multiple files selected');
+        })
+    </script>
+{% endblock %}
