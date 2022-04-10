@@ -18,7 +18,7 @@ function loadStl(files) {
             {
                 models:
                     [
-                        {filename:"upload/" + file.toString().toLowerCase()}
+                        {filename:"upload/" + file.toString()}
                     ]
             }
         );

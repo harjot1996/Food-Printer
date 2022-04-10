@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 mkdir gcode_clean gcode_unclean
 
 sh slic3r_script.sh
@@ -6,7 +8,7 @@ python3 prefix.py
 
 python3 generateRScript.py
 
-RScript GCode_clean_temp.R
+Rscript GCode_clean_temp.R
 
 touch concat.sh
 python3 concat.py

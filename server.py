@@ -25,7 +25,7 @@ def home():
 def show_stl():
     def numeric_key(x):
         return (int(x.split('.')[0]))
-    files = os.listdir(app.config['STATIC_STL_FOLDER'])
+    files = os.listdir(STATIC_STL_FOLDER)
     files = sorted(files, key=numeric_key)
     return render_template('stl-viewer.html', files=files)
 
@@ -58,13 +58,13 @@ def download_gcode():
 
 
 def copy_stl():
-    files = os.listdir(app.config['UPLOAD_FOLDER'])
+    files = os.listdir(UPLOAD_FOLDER)
     for f_name in files:
         if f_name[-4:].lower() != ".stl":
             continue
-        f = os.path.join(app.config['UPLOAD_FOLDER'], f_name)
+        f = os.path.join(UPLOAD_FOLDER, f_name)
         if os.path.isfile(f):
-            shutil.copy(f, app.config['STATIC_STL_FOLDER'])
+            shutil.copy(f, STATIC_STL_FOLDER)
 
 
 @app.route('/upload', methods=['GET', 'POST'])
@@ -76,7 +76,7 @@ def upload():
             os.remove(os.path.join(STATIC_STL_FOLDER, f))
         files = request.files.getlist("file[]")
         for file in files:
-            x = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+            x = os.path.join(UPLOAD_FOLDER, file.filename)
             file.save(x)
     copy_stl()
     #flaskplug.init()
@@ -87,6 +87,6 @@ def upload():
 if __name__ == '__main__':
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     app.config['STATIC_STL_FOLDER'] = STATIC_STL_FOLDER
-    app.run(debug=True)
+    app.run(host='0.0.0.0')
 
 
