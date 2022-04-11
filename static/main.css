@@ -494,3 +494,28 @@ body {
     top: 40px;
     background-color: #000000;
 }
+
+.spacer-20 {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.instructions {
+    margin-top: 30px;
+    padding: 15px 30px 30px 30px;
+    background-color: white;
+}
+
+.inst-main {
+    display: block;
+    margin-top: 15px;
+}
+
+.inst-sub {
+    display: block;
+    padding-left: 30px;
+}
+
+.inst-space {
+    padding-left: 30px;
+}
