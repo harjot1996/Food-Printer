@@ -57,6 +57,11 @@ def download_gcode():
     return send_file("./combined.gcode", as_attachment=True)
 
 
+@app.route('/download-sample', methods=['GET', 'POST'])
+def download_sample():
+    return send_file("./sample.zip", as_attachment=True)
+
+
 def copy_stl():
     files = os.listdir(UPLOAD_FOLDER)
     for f_name in files:
