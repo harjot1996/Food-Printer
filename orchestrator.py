@@ -3,7 +3,6 @@ import re
 from generate_gcode import GcodeGenerator
 from fix_depths import GcodeDepthFixer
 from process_gcode import GcodeProcessor
-import shutil
 
 
 def layer_config_regex(search):
@@ -19,7 +18,6 @@ class Orchestrator:
         self.INPUT_DIR = './input'
         self.TEMP_DIR = './temp'
         self.OUTPUT_DIR = './output'
-        self.HOSTING_DIR = './static/upload'
         self.flush_dirs()
         self.CONFIGS, self.OFFSET = self.generate_config_and_offset()
 
@@ -51,22 +49,3 @@ class Orchestrator:
         self.CONFIGS = step_2.fix_depths()
         step_3 = GcodeProcessor(self.CONFIGS)
         step_3.clean_and_concatenate()
-
-    def run_standalone(self):
-        self.run()
-
-    def run_for_server(self):
-        for f in os.listdir(self.HOSTING_DIR):
-            if f.lower() == "combined.gcode":
-                os.remove(os.path.join(self.HOSTING_DIR, f))
-        self.run()
-        self.copy_output_to_host()
-
-    def copy_output_to_host(self):
-        for f in os.listdir(self.OUTPUT_DIR):
-            if f.lower() == "combined.gcode":
-                f = os.path.join(self.OUTPUT_DIR, f)
-            if os.path.isfile(f):
-                shutil.copy(f, self.HOSTING_DIR)
-                break
-
