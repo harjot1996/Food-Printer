@@ -60,7 +60,7 @@ def show_gcode():
         f = os.path.join(HOSTING_DIR, f_name)
         file = open(f, mode='r')
         gcode = file.read()
-        print("it was read")
+        gcode = gcode.replace("U","E")
     return render_template('gcode-viewer.html', gcode=gcode)
 
 
