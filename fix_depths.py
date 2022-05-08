@@ -2,7 +2,7 @@ import re
 from process_gcode import GcodeProcessor
 
 
-class FixConfigDepths:
+class GcodeDepthFixer:
 	def __init__(self, configs):
 		self.CONFIGS = configs
 		self.TEMP_DIR = './temp'
@@ -63,11 +63,3 @@ class FixConfigDepths:
 			depth_map[tool] = round((depth_map[tool] + depth), 3)
 			print('Updated depth of tool [' + str(tool) + '] = ' + str(depth_map[tool]))
 		return self.CONFIGS
-
-
-configs_ = [['1.STL', '2', '0.02', '21'], ['2.STL', '3', '0.0195', '8'], ['3.STL', '2', '0.01', '21']]
-ob = FixConfigDepths(configs_)
-updated_configs = ob.fix_depths()
-print(updated_configs)
-ob2 = GcodeProcessor(updated_configs)
-ob2.clean_and_concatenate()
