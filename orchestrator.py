@@ -43,7 +43,7 @@ class Orchestrator:
             os.remove(os.path.join(self.OUTPUT_DIR, f))
 
     def run(self):
-        step_1 = GcodeGenerator(self.CONFIGS)
+        step_1 = GcodeGenerator(self.CONFIGS, self.OFFSET)
         step_1.generate_gcode()
         step_2 = GcodeDepthFixer(self.CONFIGS)
         self.CONFIGS = step_2.fix_depths()

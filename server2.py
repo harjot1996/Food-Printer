@@ -60,6 +60,7 @@ def show_gcode():
         f = os.path.join(HOSTING_DIR, f_name)
         file = open(f, mode='r')
         gcode = file.read()
+        print("it was read")
     return render_template('gcode-viewer.html', gcode=gcode)
 
 
@@ -90,12 +91,12 @@ def flush_dir(dir_):
         os.remove(os.path.join(dir_, f))
 
 
-def copy_output_to_host(self):
-    for f in os.listdir(self.OUTPUT_DIR):
+def copy_output_to_host():
+    for f in os.listdir(OUTPUT_DIR):
         if f.lower() == "combined.gcode":
-            f = os.path.join(self.OUTPUT_DIR, f)
+            f = os.path.join(OUTPUT_DIR, f)
         if os.path.isfile(f):
-            shutil.copy(f, self.HOSTING_DIR)
+            shutil.copy(f, HOSTING_DIR)
             break
 
 

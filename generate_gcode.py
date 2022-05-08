@@ -59,6 +59,7 @@ class GcodeGenerator:
                 delta_x = self.BED_CENTER_X - center_x
                 delta_y = self.BED_CENTER_Y - center_y
                 delta_z = self.BASE_OFFSET - min_z
+                first = False
             x_coord = round(center_x + delta_x, 2)
             y_coord = round(center_y + delta_y, 2)
             z_offset = round(min_z + delta_z, 2)
@@ -66,7 +67,7 @@ class GcodeGenerator:
         return metadata
 
     def invoke_slicer(self, meta):
-        cmd = '--gcode-comments --infill-speed 10 --fill-density 80 --z-offset '
+        cmd = ' --gcode-comments --infill-speed 10 --fill-density 80 --z-offset '
         cmd += str(meta[3])  # z-offset
         cmd += ' --skirt-height 0 --skirts 0 --print-center '
         cmd += str(meta[1])  # print-center x coord
@@ -80,7 +81,7 @@ class GcodeGenerator:
         cmd += " --bridge-flow-ratio 2 --fill-pattern 'rectilinear' --nozzle-diameter 1.2 -o "
         cmd += self.TEMP_DIR + ' '  # directory where the gcode file needs to be stored
         cmd += self.INPUT_DIR + '/' + str(meta[0])  # input stl file
-        subprocess.call([self.SLIC3R_PATH, cmd])
+        subprocess.call(self.SLIC3R_PATH + cmd, shell=True)
 
     def generate_gcode(self):
         stl_files = [f for f in listdir(self.INPUT_DIR) if isfile(join(self.INPUT_DIR, f)) and f[-4:].upper() == ".STL"]
